@@ -1,5 +1,6 @@
 const webpack = require("webpack");
-const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const packageJson = require('../package.json');
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = {
@@ -40,7 +41,7 @@ module.exports = {
       exposes: {
         './MarketingApp': './src/bootstrap',
       },
-      shared: ['react', 'react-dom', 'react-router'],
+      shared: packageJson.dependencies,
     }),
   ].filter(Boolean),
 };
