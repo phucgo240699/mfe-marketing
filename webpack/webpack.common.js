@@ -1,5 +1,7 @@
 const path = require('path');
+const packageJson = require('../package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = {
   entry: path.resolve(__dirname, '..', 'src/index.tsx'),
@@ -70,6 +72,18 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', 'public/index.html'),
+    }),
+    new ModuleFederationPlugin({
+      name: 'mfe-marketing',
+      library: {
+        type: 'var',
+        name: 'mfeMarketing',
+      },
+      filename: 'remoteEntry.js',
+      exposes: {
+        './MarketingApp': './src/bootstrap',
+      },
+      shared: packageJson.dependencies,
     }),
   ],
   output: {
