@@ -1,11 +1,15 @@
 const webpack = require("webpack");
 const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = {
-  mode: "development",
-  devtool: "cheap-module-source-map",
+  mode: 'development',
+  devtool: 'cheap-module-source-map',
   devServer: {
     open: true,
+    historyApiFallback: {
+      index: 'index.html',
+    },
   },
   module: {
     rules: [
@@ -14,9 +18,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve("babel-loader"),
+            loader: require.resolve('babel-loader'),
             options: {
-              plugins: [require.resolve("react-refresh/babel")].filter(Boolean),
+              plugins: [require.resolve('react-refresh/babel')].filter(Boolean),
             },
           },
         ],
@@ -26,5 +30,17 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshPlugin(),
+    new ModuleFederationPlugin({
+      name: 'mfe-marketing',
+      library: {
+        type: 'var',
+        name: 'mfeMarketing',
+      },
+      filename: 'remoteEntry.js',
+      exposes: {
+        './MarketingApp': './src/bootstrap',
+      },
+      shared: ['react', 'react-dom', 'react-router'],
+    }),
   ].filter(Boolean),
 };
