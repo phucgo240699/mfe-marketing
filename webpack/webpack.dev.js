@@ -1,7 +1,5 @@
-const webpack = require("webpack");
-const packageJson = require('../package.json');
+const webpack = require('webpack');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = {
   mode: 'development',
@@ -31,17 +29,5 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshPlugin(),
-    new ModuleFederationPlugin({
-      name: 'mfe-marketing',
-      library: {
-        type: 'var',
-        name: 'mfeMarketing',
-      },
-      filename: 'remoteEntry.js',
-      exposes: {
-        './MarketingApp': './src/bootstrap',
-      },
-      shared: packageJson.dependencies,
-    }),
   ].filter(Boolean),
 };
