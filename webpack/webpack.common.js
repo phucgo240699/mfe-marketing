@@ -86,8 +86,4 @@ module.exports = {
       shared: packageJson.dependencies,
     }),
   ],
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, '..', 'dist'),
-  },
 };

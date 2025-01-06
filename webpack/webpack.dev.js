@@ -6,9 +6,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   devServer: {
     open: true,
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    historyApiFallback: true,
   },
   module: {
     rules: [
