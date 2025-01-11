@@ -1,4 +1,6 @@
 ==== Local run ====
+Node version: 22.13.0
+
 Dev - 3031:
 npm run start
 Prod - 8081:
