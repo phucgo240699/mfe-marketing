@@ -1,0 +1,52 @@
+name: Development Deployment
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install Docker
+      run: |
+        sudo apt update
+        sudo apt install apt-transport-https ca-certificates curl software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+        apt-cache policy docker-ce
+        sudo apt install docker-ce
+        sudo systemctl status docker
+
+    - name: Execute the Docker Command Without Sudo
+      run: |
+        sudo usermod -aG docker ${USER}
+        su - ${USER}
+        groups
+
+    - name: Install Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+
+    - name: Install doctl
+      run: |
+        curl -sL https://github.com/digitalocean/doctl/releases/download/v1.64.0/doctl-1.64.0-linux-amd64.tar.gz | tar -xzv
+        sudo mv doctl /usr/local/bin
+
+    - name: Authenticate with DigitalOcean
+      env:
+        DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      run: doctl auth init -t $DIGITALOCEAN_ACCESS_TOKEN
+
+    - name: Run docker-compose-dev up
+      run: docker-compose -f docker-compose-dev.yml up -d --build
