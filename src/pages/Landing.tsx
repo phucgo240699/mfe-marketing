@@ -61,7 +61,7 @@ const LandingPage: React.FC = () => {
       <div className="flex gap-4 mt-10">
         <NavLink
           to={'/pricing'}
-          className="bg-blue-700 rounded-md px-6 py-1 text-lg text-white shadow-md"
+          className="bg-blue-700 hover:bg-blue-500 rounded-md px-6 py-1 text-lg text-white shadow-md"
         >
           Pricing
         </NavLink>
@@ -69,19 +69,23 @@ const LandingPage: React.FC = () => {
       <div className="mt-14 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-6">
         {items.map((item, index) => (
           <div key={index} className="rounded-lg shadow-lg">
-            <img
-              style={{ objectFit: 'contain' }}
-              src={item.imageUrl}
-              alt="thumbnail"
-            />
+            <div className="w-full flex justify-center">
+              <img
+                src={item.imageUrl}
+                alt="thumbnail"
+                className="object-contain"
+              />
+            </div>
             <div className="p-6">
               <h4>{item.heading}</h4>
               <p>{item.description}</p>
               <div className="flex gap-4 mt-4">
-                <button className="bg-blue-700 rounded-md px-6 py-1 text-lg text-white shadow-md">
+                <button className="bg-blue-700 hover:bg-blue-500 rounded-md px-6 py-1 text-lg text-white shadow-md">
                   View
                 </button>
-                <button className="text-blue-700">Edit</button>
+                <button className="text-blue-700 hover:text-blue-500">
+                  Edit
+                </button>
               </div>
             </div>
           </div>
