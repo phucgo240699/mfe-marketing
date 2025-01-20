@@ -1,11 +1,12 @@
-import './App.css';
+import './index.css';
+import React from 'react';
+import PricingPage from '../pages/Pricing';
+import LandingPage from '../pages/Landing';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import PricingPage from './pages/Pricing';
-import LandingPage from './pages/Landing';
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/marketing">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/pricing" element={<PricingPage />} />
