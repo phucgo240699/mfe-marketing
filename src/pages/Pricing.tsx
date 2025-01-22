@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink } from 'react-router';
+import { Link } from 'react-router';
 
 const PricingPage: React.FC = () => {
   return (
@@ -12,12 +12,12 @@ const PricingPage: React.FC = () => {
         scrambled it to make a type specimen book
       </p>
       <div className="flex gap-4 mt-10">
-        <NavLink
+        <Link
           to={'/'}
           className="bg-blue-700 rounded-md px-6 py-1 text-lg text-white shadow-md"
         >
           Landing
-        </NavLink>
+        </Link>
       </div>
     </div>
   );

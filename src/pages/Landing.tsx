@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink } from 'react-router';
+import { Link } from 'react-router';
 
 const LandingPage: React.FC = () => {
   const items: {
@@ -59,12 +59,12 @@ const LandingPage: React.FC = () => {
         not simply skip over it entirely
       </p>
       <div className="flex gap-4 mt-10">
-        <NavLink
+        <Link
           to={'/pricing'}
           className="bg-blue-700 hover:bg-blue-500 rounded-md px-6 py-1 text-lg text-white shadow-md"
         >
           Pricing
-        </NavLink>
+        </Link>
       </div>
       <div className="mt-14 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-6">
         {items.map((item, index) => (
