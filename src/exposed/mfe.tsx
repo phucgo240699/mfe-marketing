@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { SuspenseLayer } from '@/components/SuspenseLayer';
 
-const LandingPage = React.lazy(() => import('@/pages/Landing'));
-const PricingPage = React.lazy(() => import('@/pages/Pricing'));
+const LandingPage = React.lazy(() => import('@/pages/landing'));
+const PricingPage = React.lazy(() => import('@/pages/pricing'));
 
 const App: React.FC = () => {
   return (
