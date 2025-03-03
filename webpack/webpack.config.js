@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common');
 const webpack = require('webpack');
+const packageJson = require('../package.json');
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 function getEnvVariables(envVarsPath) {
   if (fs.existsSync(envVarsPath)) {
@@ -18,7 +20,7 @@ function getEnvVariables(envVarsPath) {
 }
 
 module.exports = (envs) => {
-  const { env } = envs;
+  const { env, mfe } = envs;
 
   // Load environment variables
   const commonVarsPath = path.resolve(__dirname, '..', 'env/.env');
@@ -38,6 +40,20 @@ module.exports = (envs) => {
         ...commonVars,
         ...envVars,
       }),
+      ...(mfe === 'true' ? [
+        new ModuleFederationPlugin({
+          name: 'mfe-marketing',
+          library: {
+            type: 'var',
+            name: 'mfeMarketing',
+          },
+          filename: 'remoteEntry.js',
+          exposes: {
+            './MarketingApp': './src/bootstrap',
+          },
+          shared: packageJson.dependencies,
+        })
+      ] : [])
     ],
   };
 

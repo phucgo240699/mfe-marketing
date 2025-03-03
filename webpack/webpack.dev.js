@@ -26,6 +26,8 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ReactRefreshPlugin(),
+    new ReactRefreshPlugin({
+      exclude: [/node_modules/, /dist/],
+    }),
   ].filter(Boolean),
 };

@@ -1,9 +1,19 @@
 version: '3'
 services:
-  development:
+  main:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.main.dev
+    ports:
+      # <outside-world-can-access-to-the-container-at-port>:<container-port>
+      # <container-port> is defined in package.json start by webpack
+      - '3001:3001'
+    env_file:
+      - ./env/.env.dev
+  mfe:
+    build:
+      context: .
+      dockerfile: Dockerfile.mfe.dev
     ports:
       # <outside-world-can-access-to-the-container-at-port>:<container-port>
       # <container-port> is defined in package.json start by webpack
