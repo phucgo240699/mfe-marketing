@@ -34,7 +34,7 @@ docker-compose -f docker-compose-dev.yml up -d --build
 
 ```sh
 npm run build
-npm run start:build
+npm run start
 ```
 
 **_Docker_**
